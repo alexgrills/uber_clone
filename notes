@@ -1,0 +1,37 @@
+Rider
+	0 - Logs in / Signs up USE BCRYPT
+	1 - Requests a fare estimate
+	2 - Requests a ride
+	3 - Requests trip information
+	4 - Rates Trip (Driver)
+	5 - Back to 1
+
+Driver
+	0 - Logs in / Signs up #USE BCRYPT
+	1 - Starts Driving
+	2 - Accepts a ride
+	3 - Requests trip information
+	4 - Rates Trip (Rider)
+	5 - Back to 1
+
+Create notification service to do all push notifications.
+
+User create account
+Password is hashed and stored in db
+When user logs in, hashed pass is compared to db version
+if hash matches, grant access. If not, deny
+13c8a13ae4074ac0a7ea99171eba8941
+^32
+
+
+from model import db
+db.create_all()
+from model import Rider, Driver, Trip
+test_rider = Rider(email="test_rider@test.com", password_hash="ba8b803865b1dd9ab3e4164e9b5ecddb105b0dc81aa6a9e21c252402d8eb4b5a:abcdefghijklmnopqrstuvwxyz123456")
+test_driver = Driver(email="test_driver@test.com", password_hash="ba8b803865b1dd9ab3e4164e9b5ecddb105b0dc81aa6a9e21c252402d8eb4b5a:abcdefghijklmnopqrstuvwxyz123456")
+test_trip = Trip(pickup_longitude=32.1232, pickup_latitude=76.1234, dropoff_longitude=34.1231, dropoff_latitude=74.123123, fare_estimate=5.12, driver=test_driver, rider=test_rider)
+db.session.add(test_driver)
+db.session.add(test_rider)
+db.session.add(test_trip)
+db.session.commit()
+
