@@ -16,7 +16,7 @@ def test_can_start_driving(mocker):
 def test_can_accept_trip(mocker):
     mock_db_service = mocker.patch("database_service.accept_trip")
     mock_notify = mocker.patch("driver_service.notify")
-    response = driver_service.accept_trip(trip_id="1", email="test@test.com")
-    mock_db_service.assert_called_once_with("1", "test@test.com")
+    response = driver_service.accept_trip(trip_id="1", driver_email="test_driver@test.com", rider_email="test_rider@test.com")
+    mock_db_service.assert_called_once_with("test_rider@test.com", "test_driver@test.com", "1")
     mock_notify.assert_called_once_with("1")
     assert response

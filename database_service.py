@@ -55,7 +55,7 @@ def set_to_driving(email):
 
 def accept_trip(rider_email, driver_email, trip):
     driver = model.Driver.query.filter_by(email=driver_email)
-    rider = model.Trip.query.filter_by(email=rider_email)
+    rider = model.Rider.query.filter_by(email=rider_email)
     driver["available"] = False
     trip["driver_id"] = driver
     trip["rider_id"] = rider
@@ -63,4 +63,5 @@ def accept_trip(rider_email, driver_email, trip):
     trip["completed"] = False
     model.db.session.add(driver)
     model.db.session.add(trip)
-    model.db.session.commit() 
+    model.db.session.commit()
+    return True 

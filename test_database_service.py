@@ -193,7 +193,7 @@ def test_accept_trip(mocker):
         "fare_estimate": "1"
     }
 
-    response = database_service.accept_trip("test_driver@test.com", "test_driver@test.com", trip)
+    response = database_service.accept_trip("test_rider@test.com", "test_driver@test.com", trip)
 
     accepted_driver = {
         "id": "1",
@@ -219,8 +219,7 @@ def test_accept_trip(mocker):
 
     mock_driver.query.filter_by.assert_called_once_with(email="test_driver@test.com")
     mock_rider.query.filter_by.assert_called_once_with(email="test_rider@test.com")
-    mock_db.session.add.assert_called_once_with(accepted_driver)
-    mock_db.session.add.assert_called_once_with(accepted_trip)
+    mock_db.session.add.has_calls([accepted_driver, accepted_trip])
     mock_db.session.commit.assert_called()
 
     assert response
